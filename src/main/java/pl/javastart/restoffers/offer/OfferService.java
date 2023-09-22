@@ -1,6 +1,7 @@
 package pl.javastart.restoffers.offer;
 
 import org.springframework.stereotype.Service;
+import pl.javastart.restoffers.category.CategoryRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +11,11 @@ import java.util.stream.Collectors;
 public class OfferService {
 
     private OfferRepository offerRepository;
+    private CategoryRepository categoryRepository;
 
-    public OfferService(OfferRepository offerRepository) {
+    public OfferService(OfferRepository offerRepository, CategoryRepository categoryRepository) {
         this.offerRepository = offerRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<OfferDto> findFilteredByTitle(String title) {
@@ -44,7 +47,13 @@ public class OfferService {
         return dto;
     }
 
-    public OfferDto addOffer(Offer offer) {
+    public OfferDto addOffer(OfferDto offerDto) {
+        Offer offer = new Offer();
+        offer.setTitle(offerDto.getTitle());
+        offer.setDescription(offerDto.getDescription());
+        offer.setPrice(offerDto.getPrice());
+        offer.setImgUrl(offerDto.getImgUrl());
+        offer.setCategory(categoryRepository.findByName(offerDto.getCategory()));
         offerRepository.save(offer);
 
         return toDto(offer);

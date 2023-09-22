@@ -16,7 +16,7 @@ public class OfferRestController {
         this.offerService = offerService;
     }
 
-    @GetMapping()
+    @GetMapping("")
     public List<OfferDto> getAllOffers(@RequestParam(required = false) String title) {
         return offerService.findFilteredByTitle(title);
     }
@@ -26,9 +26,9 @@ public class OfferRestController {
         return offerService.countOffers();
     }
 
-    @PostMapping()
-    public OfferDto addOffer(@RequestBody Offer offer) {
-        return offerService.addOffer(offer);
+    @PostMapping("")
+    public OfferDto addOffer(@RequestBody OfferDto offerDto) {
+        return offerService.addOffer(offerDto);
     }
 
     @GetMapping("/{id}")

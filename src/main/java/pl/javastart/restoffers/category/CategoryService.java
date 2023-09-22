@@ -16,7 +16,7 @@ public class CategoryService {
     public List<String> getCategoriesNames() {
         return categoryRepository.findAll()
                 .stream()
-                .map(category -> category.getName())
+                .map(Category::getName)
                 .collect(Collectors.toList());
     }
 
@@ -36,9 +36,12 @@ public class CategoryService {
         return dto;
     }
 
-    public Category add(Category category) {
+    public CategoryDto add(CategoryDto categoryDto) {
+        Category category = new Category();
+        category.setName(categoryDto.getName());
+        category.setDescription(categoryDto.getDescription());
         categoryRepository.save(category);
-        return category;
+        return categoryDto;
     }
 
     public void deleteById(Long id) {

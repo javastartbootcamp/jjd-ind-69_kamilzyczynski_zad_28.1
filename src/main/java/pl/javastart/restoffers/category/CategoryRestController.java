@@ -19,16 +19,14 @@ public class CategoryRestController {
         return categoryService.getCategoriesNames();
     }
 
-    @GetMapping()
-
+    @GetMapping("")
     public List<CategoryDto> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
-    @PostMapping()
-    public Category addCategory(@RequestBody Category category) {
-        categoryService.add(category);
-        return category;
+    @PostMapping("")
+    public CategoryDto addCategory(@RequestBody CategoryDto categoryDto) {
+        return categoryService.add(categoryDto);
     }
 
     @DeleteMapping("/{id}")
